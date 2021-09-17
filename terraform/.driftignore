@@ -1,0 +1,6 @@
+# Resources not covered by IaC
+aws_iam_policy_attachment.AWSReservedSSO_AdministratorAccess_51274f70b98a49ec-arn:aws:iam::aws:policy/AdministratorAccess
+aws_iam_policy_attachment.AWSServiceRoleForSSO-arn:aws:iam::aws:policy/aws-service-role/AWSSSOServiceRolePolicy
+aws_iam_role.AWSReservedSSO_AdministratorAccess_51274f70b98a49ec
+aws_iam_role.OrganizationAccountAccessRole
+aws_iam_role_policy.OrganizationAccountAccessRole:AdministratorAccess
