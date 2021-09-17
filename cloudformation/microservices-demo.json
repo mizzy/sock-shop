@@ -181,6 +181,7 @@
     "KeyName": {
       "Type": "AWS::EC2::KeyPair::KeyName",
       "Description": "Name of an existing EC2 KeyPair to enable SSH access to the ECS instances (if none appear in drop-down menu, you need to create one)",
+      "Default": "sock-shop",
       "MinLength": "1",
       "ConstraintDescription": "must be the name of an existing EC2 KeyPair."
     },
