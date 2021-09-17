@@ -1065,6 +1065,10 @@ Resources:
               Value: mysql
             - Name: MYSQL_HOST
               Value: zipkin-mysql
+            - Name: MYSQL_USER
+              Value: zipkin
+            - Name: MYSQL_PASS
+              Value: zipkin
       Volumes: []
       NetworkMode: awsvpc
       ExecutionRoleArn: !GetAtt EcsTaskExecutionRole.Arn
