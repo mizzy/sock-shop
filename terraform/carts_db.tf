@@ -7,7 +7,7 @@ resource "aws_ecs_service" "carts_db" {
 
   network_configuration {
     assign_public_ip = true
-    security_groups  = [aws_security_group.rds_importer_allowed_ports.id]
+    security_groups  = [aws_security_group.ecs.id]
     subnets = [
       aws_subnet.public_subnet_1.id,
       aws_subnet.public_subnet_2.id,

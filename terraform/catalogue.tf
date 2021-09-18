@@ -5,7 +5,7 @@ resource "aws_security_group" "db_ec2" {
     protocol        = "tcp"
     from_port       = 3306
     to_port         = 3306
-    security_groups = [aws_security_group.rds_importer_allowed_ports.id]
+    security_groups = [aws_security_group.ecs.id]
   }
 
   tags = {

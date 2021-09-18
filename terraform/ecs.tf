@@ -38,3 +38,39 @@ resource "aws_service_discovery_private_dns_namespace" "local" {
 resource "aws_ecs_cluster" "sock_shop" {
   name = "Sock-Shop"
 }
+
+### Security Groups
+
+resource "aws_security_group" "ecs" {
+  description = "ECS Allowed Ports"
+  tags = {
+    "Name" = "ecs"
+  }
+}
+
+resource "aws_security_group_rule" "ecs_allow_ssh_from_all" {
+  type              = "ingress"
+  security_group_id = aws_security_group.ecs.id
+  protocol          = "tcp"
+  from_port         = 22
+  to_port           = 22
+  cidr_blocks       = ["0.0.0.0/0"]
+}
+
+resource "aws_security_group_rule" "ecs_allow_all_from_elb" {
+  type                     = "ingress"
+  security_group_id        = aws_security_group.ecs.id
+  protocol                 = -1
+  from_port                = 0
+  to_port                  = 65536
+  source_security_group_id = aws_security_group.elb_allowed_ports.id
+}
+
+resource "aws_security_group_rule" "ecs_allow_all_from_self" {
+  type                     = "ingress"
+  security_group_id        = aws_security_group.ecs.id
+  protocol                 = -1
+  from_port                = 0
+  to_port                  = 65536
+  source_security_group_id = aws_security_group.ecs.id
+}
