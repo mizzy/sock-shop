@@ -364,7 +364,7 @@ Resources:
       RequiresCompatibilities:
         - FARGATE
       ContainerDefinitions:
-        - Image: weaveworksdemos/carts
+        - Image: weaveworksdemos/carts:0.4.8
           Essential: true
           Name: carts
           LogConfiguration:
@@ -416,7 +416,7 @@ Resources:
       RequiresCompatibilities:
         - FARGATE
       ContainerDefinitions:
-        - Image: weaveworksdemos/catalogue
+        - Image: weaveworksdemos/catalogue:0.3.5
           Essential: true
           Name: catalogue
           Command:
