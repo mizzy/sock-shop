@@ -30,3 +30,7 @@ resource "aws_subnet" "public_subnet_2" {
     "Name" = "public subnet 2"
   }
 }
+
+resource "aws_internet_gateway" "internet_gateway" {
+  vpc_id = aws_vpc.sock_shop.id
+}
