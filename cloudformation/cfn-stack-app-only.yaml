@@ -184,7 +184,7 @@ Resources:
       VpcId: !Ref Vpc
       Tags:
         - Key: Name
-          Value: rds-importer-allowed-ports
+          Value: ecs
   EcsSecurityGroupIngressSshPort:
     Type: 'AWS::EC2::SecurityGroupIngress'
     Properties:
@@ -312,15 +312,15 @@ Resources:
           SourceSecurityGroupId: !Ref EcsSecurityGroup
       VpcId: !Ref Vpc
   myDBSubnetGroup:
-      Tags:
-        - Key: Name
-          Value: db-ec2
     Type: 'AWS::RDS::DBSubnetGroup'
     Properties:
       DBSubnetGroupDescription: description
       SubnetIds:
         - !Ref PubSubnetAz1
         - !Ref PubSubnetAz2
+      Tags:
+        - Key: Name
+          Value: db-ec2
   EcsCluster:
     Type: 'AWS::ECS::Cluster'
     Properties:
