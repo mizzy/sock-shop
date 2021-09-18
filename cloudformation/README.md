@@ -15,3 +15,12 @@ $ AWS_PROFILE=sock-shop aws cloudformation create-stack \
   --capabilities CAPABILITY_IAM \
   --timeout-in-minutes 60
 ```
+
+## How to update a stack
+
+```
+$ AWS_PROFILE=sock-shop  aws cloudformation update-stack \
+  --stack-name sock-shop \
+  --template-body file://cfn-stack-app-only.yaml \
+  --capabilities CAPABILITY_IAM
+```
