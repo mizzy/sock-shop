@@ -312,6 +312,9 @@ Resources:
           SourceSecurityGroupId: !Ref EcsSecurityGroup
       VpcId: !Ref Vpc
   myDBSubnetGroup:
+      Tags:
+        - Key: Name
+          Value: db-ec2
     Type: 'AWS::RDS::DBSubnetGroup'
     Properties:
       DBSubnetGroupDescription: description
