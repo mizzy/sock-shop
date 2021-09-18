@@ -45,3 +45,12 @@ resource "aws_route" "default" {
   gateway_id             = aws_internet_gateway.internet_gateway.id
 }
 
+resource "aws_route_table_association" "public_subnet_1_via_igw" {
+  route_table_id = aws_route_table.route_via_igw.id
+  subnet_id      = aws_subnet.public_subnet_1.id
+}
+
+resource "aws_route_table_association" "public_subnet_2_via_igw" {
+  route_table_id = aws_route_table.route_via_igw.id
+  subnet_id      = aws_subnet.public_subnet_2.id
+}
