@@ -34,3 +34,7 @@ resource "aws_service_discovery_private_dns_namespace" "local" {
   name = "local"
   vpc  = aws_vpc.sock_shop.id
 }
+
+resource "aws_ecs_cluster" "sock_shop" {
+  name = "Sock-Shop"
+}
