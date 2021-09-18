@@ -76,6 +76,9 @@ Resources:
         - cidr
       EnableDnsHostnames: true
       EnableDnsSupport: true
+      Tags:
+        - Key: Name
+          Value: sock shop
   DhcpOptionsLocal:
     Type: AWS::EC2::DHCPOptions
     Properties: 
@@ -104,6 +107,9 @@ Resources:
         - '0'
         - !GetAZs 
           Ref: 'AWS::Region'
+      Tags:
+        - Key: Name
+          Value: public subnet 1
   PubSubnetAz2:
     Type: 'AWS::EC2::Subnet'
     Properties:
@@ -116,6 +122,9 @@ Resources:
         - '1'
         - !GetAZs 
           Ref: 'AWS::Region'
+      Tags:
+        - Key: Name
+          Value: public subnet 2
   InternetGateway:
     Type: 'AWS::EC2::InternetGateway'
   AttachGateway:
