@@ -78,7 +78,7 @@ Resources:
       EnableDnsSupport: true
       Tags:
         - Key: Name
-          Value: sock shop
+          Value: sock-shop
   DhcpOptionsLocal:
     Type: AWS::EC2::DHCPOptions
     Properties: 
@@ -109,7 +109,7 @@ Resources:
           Ref: 'AWS::Region'
       Tags:
         - Key: Name
-          Value: public subnet 1
+          Value: public-subnet-1
   PubSubnetAz2:
     Type: 'AWS::EC2::Subnet'
     Properties:
@@ -124,7 +124,7 @@ Resources:
           Ref: 'AWS::Region'
       Tags:
         - Key: Name
-          Value: public subnet 2
+          Value: public-subnet-2
   InternetGateway:
     Type: 'AWS::EC2::InternetGateway'
   AttachGateway:
@@ -158,6 +158,9 @@ Resources:
     Properties:
       GroupDescription: ELB Allowed Ports
       VpcId: !Ref Vpc
+      Tags:
+        - Key: Name
+          Value: elb-allowed-ports
   ElbSecurityGroupIngressAppPort:
     Type: 'AWS::EC2::SecurityGroupIngress'
     Properties:
@@ -179,6 +182,10 @@ Resources:
     Properties:
       GroupDescription: ECS Allowed Ports
       VpcId: !Ref Vpc
+      Tags:
+        - Key: Name
+          Value: rds-importer-allowed-ports
+  # ここまでインポート
   EcsSecurityGroupIngressSshPort:
     Type: 'AWS::EC2::SecurityGroupIngress'
     Properties:
