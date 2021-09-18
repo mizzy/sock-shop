@@ -34,3 +34,14 @@ resource "aws_subnet" "public_subnet_2" {
 resource "aws_internet_gateway" "internet_gateway" {
   vpc_id = aws_vpc.sock_shop.id
 }
+
+resource "aws_route_table" "route_via_igw" {
+  vpc_id = aws_vpc.sock_shop.id
+}
+
+resource "aws_route" "default" {
+  destination_cidr_block = "0.0.0.0/0"
+  route_table_id         = aws_route_table.route_via_igw.id
+  gateway_id             = aws_internet_gateway.internet_gateway.id
+}
+
