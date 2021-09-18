@@ -46,3 +46,19 @@ resource "aws_ecs_task_definition" "carts" {
   family                   = "sock-shop-CartsTask-eIq5v1xKpl13"
   requires_compatibilities = ["FARGATE"]
 }
+
+resource "aws_service_discovery_service" "carts" {
+  name = "carts"
+
+  dns_config {
+    namespace_id = aws_service_discovery_private_dns_namespace.local.id
+    dns_records {
+      ttl  = 10
+      type = "A"
+    }
+  }
+
+  health_check_custom_config {
+    failure_threshold = 1
+  }
+}
