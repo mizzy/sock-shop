@@ -1,7 +1,7 @@
 resource "aws_vpc" "sock_shop" {
   cidr_block = "172.31.0.0/16"
   tags = {
-    "Name" = "sock shop"
+    "Name" = "sock-shop"
   }
 }
 
@@ -19,7 +19,7 @@ resource "aws_subnet" "public_subnet_1" {
   cidr_block = "172.31.0.0/24"
   vpc_id     = aws_vpc.sock_shop.id
   tags = {
-    "Name" = "public subnet 1"
+    "Name" = "public-subnet-1"
   }
 }
 
@@ -27,7 +27,7 @@ resource "aws_subnet" "public_subnet_2" {
   cidr_block = "172.31.1.0/24"
   vpc_id     = aws_vpc.sock_shop.id
   tags = {
-    "Name" = "public subnet 2"
+    "Name" = "public-subnet-2"
   }
 }
 
