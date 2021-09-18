@@ -185,7 +185,6 @@ Resources:
       Tags:
         - Key: Name
           Value: rds-importer-allowed-ports
-  # ここまでインポート
   EcsSecurityGroupIngressSshPort:
     Type: 'AWS::EC2::SecurityGroupIngress'
     Properties:
