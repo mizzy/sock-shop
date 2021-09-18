@@ -9,7 +9,7 @@ resource "aws_security_group" "db_ec2" {
   }
 
   tags = {
-    "Name" = "db-ec2"
+    "Name" = "db-ecs"
   }
 }
 
