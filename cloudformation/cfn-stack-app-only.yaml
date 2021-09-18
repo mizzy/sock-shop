@@ -35,7 +35,7 @@ Parameters:
     Description: >-
       Name of an existing EC2 KeyPair to enable SSH access to the SQLImporter
       EC2 instance (if none appear in drop-down menu, you need to create one)
-    Default: sock-shop
+    Default: sock-shop-cloudformation
     MinLength: '1'
     ConstraintDescription: must be the name of an existing EC2 KeyPair.
 Resources:
