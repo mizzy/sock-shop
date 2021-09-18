@@ -311,6 +311,9 @@ Resources:
           ToPort: 3306
           SourceSecurityGroupId: !Ref EcsSecurityGroup
       VpcId: !Ref Vpc
+      Tags:
+        - Key: Name
+          Value: db-ecs
   myDBSubnetGroup:
     Type: 'AWS::RDS::DBSubnetGroup'
     Properties:
@@ -318,9 +321,6 @@ Resources:
       SubnetIds:
         - !Ref PubSubnetAz1
         - !Ref PubSubnetAz2
-      Tags:
-        - Key: Name
-          Value: db-ec2
   EcsCluster:
     Type: 'AWS::ECS::Cluster'
     Properties:
