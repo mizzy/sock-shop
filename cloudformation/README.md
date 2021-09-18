@@ -9,7 +9,7 @@ Before creating a stak, create a key pair named "sock-shop".
 Then run this command:
 
 ```
-$ AWS_PROFILE=sock-shop aws cloudformation create-stack \
+$ AWS_PROFILE=sock-shop-cloudformation aws cloudformation create-stack \
   --stack-name sock-shop \
   --template-body file://cfn-stack-app-only.yaml \
   --capabilities CAPABILITY_IAM \
@@ -19,7 +19,7 @@ $ AWS_PROFILE=sock-shop aws cloudformation create-stack \
 ## How to update a stack
 
 ```
-$ AWS_PROFILE=sock-shop  aws cloudformation update-stack \
+$ AWS_PROFILE=sock-shop-cloudformation  aws cloudformation update-stack \
   --stack-name sock-shop \
   --template-body file://cfn-stack-app-only.yaml \
   --capabilities CAPABILITY_IAM
