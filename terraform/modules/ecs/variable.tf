@@ -26,6 +26,7 @@ variable "task" {
     portMappings = optional(list(object({
       containerPort = number
       hostPort      = number
+      protocol      = optional(string)
     })))
     memory  = optional(number)
     command = optional(list(string))
