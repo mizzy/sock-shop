@@ -37,13 +37,7 @@ resource "aws_ecs_task_definition" "main" {
           awslogs-stream-prefix = local.task.name,
         }
       },
-      portMappings = [
-        {
-          containerPort = local.task.port,
-          hostPort      = local.task.port,
-          protocol      = "tcp",
-        }
-      ],
+      portMappings = local.task.portMappings,
     }
   ])
 

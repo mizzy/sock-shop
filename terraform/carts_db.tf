@@ -13,7 +13,12 @@ module "ecs_carts_db" {
     image              = "mongo"
     family             = "sock-shop-CartsDBTask-6LKqO3WQLkdN"
     execution_role_arn = aws_iam_role.ecs_task_execution_role.arn
-    port               = 27017
+    portMappings = [
+      {
+        containerPort = 27017
+        hostPort      = 27017
+      }
+    ]
   }
 
   registry = {

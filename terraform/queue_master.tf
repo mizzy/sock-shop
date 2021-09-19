@@ -14,8 +14,13 @@ module "ecs_queue_master" {
     image              = "weaveworksdemos/queue-master"
     family             = "sock-shop-QueueMasterTask-WrLvLSJ3b4Sz"
     execution_role_arn = aws_iam_role.ecs_task_execution_role.arn
-    port               = 80
-    memory             = 1024
+    portMappings = [
+      {
+        containerPort = 80
+        hostPort      = 80
+      }
+    ]
+    memory = 1024
     mountPoints = [
       {
         containerPath = "/var/run/docker.sock"

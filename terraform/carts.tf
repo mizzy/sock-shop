@@ -13,8 +13,13 @@ module "ecs_carts" {
     image              = "weaveworksdemos/carts:0.4.8"
     family             = "sock-shop-CartsTask-eIq5v1xKpl13"
     execution_role_arn = aws_iam_role.ecs_task_execution_role.arn
-    port               = 80
-    memory             = 1024
+    portMappings = [
+      {
+        containerPort = 80,
+        hostPort      = 80,
+      }
+    ]
+    memory = 1024
   }
 
   registry = {

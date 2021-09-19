@@ -59,7 +59,12 @@ module "ecs_frontend" {
     image              = "weaveworksdemos/front-end"
     family             = "sock-shop-FrontEndTask-HW7tO3wK3fXn"
     execution_role_arn = aws_iam_role.ecs_task_execution_role.arn
-    port               = 8079
+    portMappings = [
+      {
+        containerPort = 8079,
+        hostPort      = 8079,
+      }
+    ]
     environment = [
       {
         name  = "SESSION_REDIS"

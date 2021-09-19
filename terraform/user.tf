@@ -13,7 +13,12 @@ module "ecs_user" {
     image              = "weaveworksdemos/user"
     family             = "sock-shop-UserTask-RdJdCNzDqhe2"
     execution_role_arn = aws_iam_role.ecs_task_execution_role.arn
-    port               = 80
+    portMappings = [
+      {
+        containerPort = 80
+        hostPort      = 80
+      }
+    ]
     environment = [
       {
         name  = "ZIPKIN"

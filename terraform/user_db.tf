@@ -13,7 +13,12 @@ module "ecs_user_db" {
     image              = "weaveworksdemos/user-db"
     family             = "sock-shop-UserDBTask-JH16IOxl33fR"
     execution_role_arn = aws_iam_role.ecs_task_execution_role.arn
-    port               = 27017
+    portMappings = [
+      {
+        containerPort = 27017
+        hostPort      = 27017
+      }
+    ]
     dockerLabels = {
       "agent.signalfx.com.port.27017" = "true",
     }

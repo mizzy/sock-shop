@@ -13,7 +13,12 @@ module "ecs_session_db" {
     image              = "redis:alpine"
     family             = "sock-shop-SessionDBTask-lmz8Mx5Cmgth"
     execution_role_arn = aws_iam_role.ecs_task_execution_role.arn
-    port               = 6379
+    portMappings = [
+      {
+        containerPort = 6379,
+        hostPort      = 6379,
+      }
+    ]
     dockerLabels = {
       "agent.signalfx.com.port.6379" = "true"
     }

@@ -31,8 +31,13 @@ module "ecs_orders" {
     image              = "weaveworksdemos/orders-aws"
     family             = "sock-shop-OrdersTask-XTi9XoWDVfLy"
     execution_role_arn = aws_iam_role.ecs_task_execution_role.arn
-    port               = 80
-    memory             = 1024
+    portMappings = [
+      {
+        containerPort = 80
+        hostPort      = 80
+      }
+    ]
+    memory = 1024
     environment = [
       {
         name  = "AWS_DYNAMODB_ENDPOINT"

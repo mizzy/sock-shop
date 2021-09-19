@@ -23,9 +23,12 @@ variable "task" {
     family             = string
     image              = string
     execution_role_arn = string
-    port               = number
-    memory             = optional(number)
-    command            = optional(list(string))
+    portMappings = optional(list(object({
+      containerPort = number
+      hostPort      = number
+    })))
+    memory  = optional(number)
+    command = optional(list(string))
     environment = optional(list(object({
       name  = string
       value = string

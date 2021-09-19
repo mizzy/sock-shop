@@ -53,7 +53,12 @@ module "ecs_catalogue" {
     image              = "weaveworksdemos/catalogue:0.3.5"
     family             = "sock-shop-CatalogueTask-DfaZsRAivWhG"
     execution_role_arn = aws_iam_role.ecs_task_execution_role.arn
-    port               = 80
+    portMappings = [
+      {
+        containerPort = 80
+        hostPort      = 80
+      }
+    ]
     command = [
       "/app",
       "-port=80",
