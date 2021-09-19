@@ -31,7 +31,7 @@ variable "task" {
       value = string
     })))
     dockerLabels  = optional(map(string))
-    task_role_arn = string
+    task_role_arn = optional(string)
     mountPoints = optional(list(object({
       containerPath = string
       sourceVolume  = string

@@ -66,7 +66,6 @@ module "ecs_frontend" {
         value = "true"
       },
     ]
-    task_role_arn = null
   }
 
   registry = {

@@ -17,7 +17,6 @@ module "ecs_user_db" {
     dockerLabels = {
       "agent.signalfx.com.port.27017" = "true",
     }
-    task_role_arn = null
   }
 
   registry = {
