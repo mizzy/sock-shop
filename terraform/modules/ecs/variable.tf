@@ -20,7 +20,7 @@ variable "task" {
     image              = string
     execution_role_arn = string
     port               = number
-    memory             = number
+    memory             = optional(number)
     command            = list(string)
     environment = list(object({
       name  = string

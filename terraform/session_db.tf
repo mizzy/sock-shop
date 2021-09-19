@@ -15,7 +15,6 @@ module "ecs_session_db" {
     family             = "sock-shop-SessionDBTask-lmz8Mx5Cmgth"
     execution_role_arn = aws_iam_role.ecs_task_execution_role.arn
     port               = 6379
-    memory             = 512
     command            = []
     environment        = []
     dockerLabels = {

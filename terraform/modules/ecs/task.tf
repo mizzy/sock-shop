@@ -1,40 +1,46 @@
+locals {
+  task = defaults(var.task, {
+    memory = 512
+  })
+}
+
 data "aws_region" "current" {}
 
 resource "aws_ecs_task_definition" "main" {
   container_definitions = jsonencode([
     {
-      name                  = var.task.name,
-      command               = var.task.command,
+      name                  = local.task.name,
+      command               = local.task.command,
       cpu                   = 0,
       dnsSearchDomains      = [],
       dnsServers            = [],
-      dockerLabels          = var.task.dockerLabels,
+      dockerLabels          = local.task.dockerLabels,
       dockerSecurityOptions = [],
       entryPoint            = [],
-      environment           = var.task.environment,
+      environment           = local.task.environment,
       environmentFiles      = [],
       extraHosts            = [],
       links                 = [],
-      mountPoints           = var.task.mountPoints,
+      mountPoints           = local.task.mountPoints,
       secrets               = [],
       systemControls        = [],
       ulimits               = [],
       volumesFrom           = [],
       essential             = true,
-      image                 = var.task.image,
+      image                 = local.task.image,
       logConfiguration = {
         secretOptions = [],
         logDriver     = "awslogs",
         options = {
           awslogs-group         = "sock-shop",
           awslogs-region        = data.aws_region.current.name,
-          awslogs-stream-prefix = var.task.name,
+          awslogs-stream-prefix = local.task.name,
         }
       },
       portMappings = [
         {
-          containerPort = var.task.port,
-          hostPort      = var.task.port,
+          containerPort = local.task.port,
+          hostPort      = local.task.port,
           protocol      = "tcp",
         }
       ],
@@ -42,15 +48,15 @@ resource "aws_ecs_task_definition" "main" {
   ])
 
   cpu    = 256
-  memory = var.task.memory
+  memory = local.task.memory
 
-  execution_role_arn       = var.task.execution_role_arn
-  task_role_arn            = var.task.task_role_arn
-  family                   = var.task.family
+  execution_role_arn       = local.task.execution_role_arn
+  task_role_arn            = local.task.task_role_arn
+  family                   = local.task.family
   requires_compatibilities = ["FARGATE"]
 
   dynamic "volume" {
-    for_each = var.task.volume != null ? [var.task.volume] : []
+    for_each = local.task.volume != null ? [local.task.volume] : []
     content {
       name = volume.value
     }

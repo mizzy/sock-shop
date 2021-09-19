@@ -15,7 +15,6 @@ module "ecs_user_db" {
     family             = "sock-shop-UserDBTask-JH16IOxl33fR"
     execution_role_arn = aws_iam_role.ecs_task_execution_role.arn
     port               = 27017
-    memory             = 512
     command            = []
     environment        = []
     dockerLabels = {

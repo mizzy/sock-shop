@@ -55,7 +55,6 @@ module "ecs_catalogue" {
     family             = "sock-shop-CatalogueTask-DfaZsRAivWhG"
     execution_role_arn = aws_iam_role.ecs_task_execution_role.arn
     port               = 80
-    memory             = 512
     command = [
       "/app",
       "-port=80",

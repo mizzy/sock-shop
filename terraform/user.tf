@@ -15,7 +15,6 @@ module "ecs_user" {
     family             = "sock-shop-UserTask-RdJdCNzDqhe2"
     execution_role_arn = aws_iam_role.ecs_task_execution_role.arn
     port               = 80
-    memory             = 512
     command            = []
     environment = [
       {
