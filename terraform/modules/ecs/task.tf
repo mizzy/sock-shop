@@ -48,7 +48,3 @@ resource "aws_ecs_task_definition" "main" {
   family                   = var.task.family
   requires_compatibilities = ["FARGATE"]
 }
-
-output "task_definition" {
-  value = "${aws_ecs_task_definition.main.id}:${aws_ecs_task_definition.main.revision}"
-}
