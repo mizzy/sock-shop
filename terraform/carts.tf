@@ -19,6 +19,7 @@ module "ecs_carts" {
     command            = []
     environment        = []
     dockerLabels       = {}
+    task_role_arn      = null
   }
 
   registry = {

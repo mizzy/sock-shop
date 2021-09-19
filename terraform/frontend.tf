@@ -68,7 +68,8 @@ module "ecs_frontend" {
         value = "true"
       },
     ]
-    dockerLabels = {}
+    dockerLabels  = {}
+    task_role_arn = null
   }
 
   registry = {

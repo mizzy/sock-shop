@@ -45,6 +45,7 @@ resource "aws_ecs_task_definition" "main" {
   memory = var.task.memory
 
   execution_role_arn       = var.task.execution_role_arn
+  task_role_arn            = var.task.task_role_arn
   family                   = var.task.family
   requires_compatibilities = ["FARGATE"]
 }

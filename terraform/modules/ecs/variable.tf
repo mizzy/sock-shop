@@ -21,7 +21,8 @@ variable "task" {
       name  = string
       value = string
     }))
-    dockerLabels = map(string)
+    dockerLabels  = map(string)
+    task_role_arn = string
   })
 }
 

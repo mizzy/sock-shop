@@ -18,9 +18,10 @@ module "ecs_user_db" {
     memory             = 512
     command            = []
     environment        = []
-    dockerLabels       = {
+    dockerLabels = {
       "agent.signalfx.com.port.27017" = "true",
     }
+    task_role_arn = null
   }
 
   registry = {
