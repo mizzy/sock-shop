@@ -15,6 +15,8 @@ module "ecs_carts_db" {
     execution_role_arn = aws_iam_role.ecs_task_execution_role.arn
     port               = 27017
     memory             = 512
+    command            = []
+    environment        = []
   }
 
   registry = {

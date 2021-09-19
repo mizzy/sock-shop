@@ -4,14 +4,14 @@ resource "aws_ecs_task_definition" "main" {
   container_definitions = jsonencode([
     {
       name                  = var.task.name,
-      command               = [],
+      command               = var.task.command,
       cpu                   = 0,
       dnsSearchDomains      = [],
       dnsServers            = [],
       dockerLabels          = {},
       dockerSecurityOptions = [],
       entryPoint            = [],
-      environment           = [],
+      environment           = var.task.environment,
       environmentFiles      = [],
       extraHosts            = [],
       links                 = [],
