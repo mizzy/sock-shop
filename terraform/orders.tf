@@ -40,7 +40,6 @@ module "ecs_orders" {
       },
 
     ]
-    dockerLabels  = {}
     task_role_arn = aws_iam_role.dynamodb_task_role.arn
   }
 

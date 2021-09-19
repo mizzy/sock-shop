@@ -20,7 +20,6 @@ module "ecs_user" {
         value = "http://zipkin:9411/api/v1/spans"
       },
     ]
-    dockerLabels  = {}
     task_role_arn = null
   }
 
