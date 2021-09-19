@@ -46,6 +46,7 @@ module "ecs_catalogue" {
     cluster_id         = aws_ecs_cluster.sock_shop.id
     security_group_ids = [aws_security_group.ecs.id]
     subnet_ids         = [aws_subnet.public_subnet_1.id, aws_subnet.public_subnet_2.id]
+    load_balancer      = null
   }
 
   task = {

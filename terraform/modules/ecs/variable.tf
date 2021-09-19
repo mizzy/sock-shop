@@ -4,6 +4,7 @@ variable "service" {
     cluster_id         = string
     security_group_ids = list(string)
     subnet_ids         = list(string)
+    load_balancer      = any
   })
 }
 
