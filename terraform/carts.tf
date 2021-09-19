@@ -6,7 +6,6 @@ module "ecs_carts" {
     cluster_id         = aws_ecs_cluster.sock_shop.id
     security_group_ids = [aws_security_group.ecs.id]
     subnet_ids         = [aws_subnet.public_subnet_1.id, aws_subnet.public_subnet_2.id]
-    registry_arn       = aws_service_discovery_service.carts.arn
   }
 
   task = {
@@ -17,20 +16,9 @@ module "ecs_carts" {
     port               = 80
     memory             = 1024
   }
-}
 
-resource "aws_service_discovery_service" "carts" {
-  name = "carts"
-
-  dns_config {
+  registry = {
+    name         = "carts"
     namespace_id = aws_service_discovery_private_dns_namespace.local.id
-    dns_records {
-      ttl  = 10
-      type = "A"
-    }
-  }
-
-  health_check_custom_config {
-    failure_threshold = 1
   }
 }

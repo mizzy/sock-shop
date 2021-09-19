@@ -4,7 +4,6 @@ variable "service" {
     cluster_id         = string
     security_group_ids = list(string)
     subnet_ids         = list(string)
-    registry_arn       = string
   })
 }
 
@@ -16,5 +15,12 @@ variable "task" {
     execution_role_arn = string
     port               = number
     memory             = number
+  })
+}
+
+variable "registry" {
+  type = object({
+    name         = string
+    namespace_id = string
   })
 }

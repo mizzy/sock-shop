@@ -12,6 +12,6 @@ resource "aws_ecs_service" "main" {
   }
 
   service_registries {
-    registry_arn = var.service.registry_arn
+    registry_arn = aws_service_discovery_service.main.arn
   }
 }
