@@ -1,3 +1,5 @@
+### Database
+
 resource "aws_security_group" "db_ec2" {
   description = "Open database for access"
 
@@ -32,6 +34,30 @@ resource "aws_db_instance" "catalogue" {
   engine   = "MySQL"
   username = "catalogue_user"
   password = "default_password"
+}
+
+
+### ECS
+
+resource "aws_ecs_service" "catalogue" {
+  name            = "sock-shop-CatalogueService-mVp9BfkdbXVD"
+  desired_count   = 1
+  launch_type     = "FARGATE"
+  cluster         = aws_ecs_cluster.sock_shop.id
+  task_definition = "${aws_ecs_task_definition.catalogue.id}:${aws_ecs_task_definition.catalogue.revision}"
+
+  network_configuration {
+    assign_public_ip = true
+    security_groups  = [aws_security_group.ecs.id]
+    subnets = [
+      aws_subnet.public_subnet_1.id,
+      aws_subnet.public_subnet_2.id,
+    ]
+  }
+
+  service_registries {
+    registry_arn = aws_service_discovery_service.catalogue.arn
+  }
 }
 
 resource "aws_ecs_task_definition" "catalogue" {
