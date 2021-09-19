@@ -91,3 +91,19 @@ resource "aws_ecs_task_definition" "catalogue" {
   family                   = "sock-shop-CatalogueTask-DfaZsRAivWhG"
   requires_compatibilities = ["FARGATE"]
 }
+
+resource "aws_service_discovery_service" "catalogue" {
+  name = "catalogue"
+
+  dns_config {
+    namespace_id = aws_service_discovery_private_dns_namespace.local.id
+    dns_records {
+      ttl  = 10
+      type = "A"
+    }
+  }
+
+  health_check_custom_config {
+    failure_threshold = 1
+  }
+}
