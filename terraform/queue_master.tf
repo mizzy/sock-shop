@@ -17,7 +17,6 @@ module "ecs_queue_master" {
     execution_role_arn = aws_iam_role.ecs_task_execution_role.arn
     port               = 80
     memory             = 1024
-    command            = []
     environment        = []
     dockerLabels       = {}
     task_role_arn      = null

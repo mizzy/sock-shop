@@ -34,7 +34,6 @@ module "ecs_orders" {
     execution_role_arn = aws_iam_role.ecs_task_execution_role.arn
     port               = 80
     memory             = 1024
-    command            = []
     environment = [
       {
         name  = "AWS_DYNAMODB_ENDPOINT"

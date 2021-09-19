@@ -21,7 +21,7 @@ variable "task" {
     execution_role_arn = string
     port               = number
     memory             = optional(number)
-    command            = list(string)
+    command            = optional(list(string))
     environment = list(object({
       name  = string
       value = string
