@@ -14,3 +14,13 @@ resource "aws_lb_target_group" "frontend" {
   protocol    = "HTTP"
   port        = 8079
 }
+
+resource "aws_lb_listener" "frontend" {
+  load_balancer_arn = aws_lb.frontend.arn
+  port = 80
+  protocol = "HTTP"
+  default_action {
+    type = "forward"
+    target_group_arn = aws_lb_target_group.frontend.arn
+  }
+}
