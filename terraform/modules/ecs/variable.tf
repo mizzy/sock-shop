@@ -1,3 +1,7 @@
+terraform {
+  experiments = [module_variable_optional_attrs]
+}
+
 variable "service" {
   type = object({
     name               = string
@@ -11,6 +15,7 @@ variable "service" {
 variable "task" {
   type = object({
     name               = string
+    volume             = optional(string)
     family             = string
     image              = string
     execution_role_arn = string
@@ -23,6 +28,10 @@ variable "task" {
     }))
     dockerLabels  = map(string)
     task_role_arn = string
+    mountPoints = optional(list(object({
+      containerPath = string
+      sourceVolume  = string
+    })))
   })
 }
 

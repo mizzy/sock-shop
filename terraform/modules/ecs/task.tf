@@ -15,7 +15,7 @@ resource "aws_ecs_task_definition" "main" {
       environmentFiles      = [],
       extraHosts            = [],
       links                 = [],
-      mountPoints           = [],
+      mountPoints           = var.task.mountPoints,
       secrets               = [],
       systemControls        = [],
       ulimits               = [],
@@ -48,4 +48,11 @@ resource "aws_ecs_task_definition" "main" {
   task_role_arn            = var.task.task_role_arn
   family                   = var.task.family
   requires_compatibilities = ["FARGATE"]
+
+  dynamic "volume" {
+    for_each = var.task.volume != null ? [var.task.volume] : []
+    content {
+      name = volume.value
+    }
+  }
 }
