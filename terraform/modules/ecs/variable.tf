@@ -8,7 +8,11 @@ variable "service" {
     cluster_id         = string
     security_group_ids = list(string)
     subnet_ids         = list(string)
-    load_balancer      = any
+    load_balancer = optional(object({
+      container_name   = string
+      container_port   = number
+      target_group_arn = string
+    }))
   })
 }
 
