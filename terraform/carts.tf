@@ -16,7 +16,6 @@ module "ecs_carts" {
     execution_role_arn = aws_iam_role.ecs_task_execution_role.arn
     port               = 80
     memory             = 1024
-    environment        = []
     dockerLabels       = {}
     task_role_arn      = null
   }

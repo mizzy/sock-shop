@@ -22,10 +22,10 @@ variable "task" {
     port               = number
     memory             = optional(number)
     command            = optional(list(string))
-    environment = list(object({
+    environment = optional(list(object({
       name  = string
       value = string
-    }))
+    })))
     dockerLabels  = map(string)
     task_role_arn = string
     mountPoints = optional(list(object({
