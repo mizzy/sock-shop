@@ -18,6 +18,7 @@ module "ecs_carts" {
     memory             = 1024
     command            = []
     environment        = []
+    dockerLabels       = {}
   }
 
   registry = {

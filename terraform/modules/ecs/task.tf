@@ -8,7 +8,7 @@ resource "aws_ecs_task_definition" "main" {
       cpu                   = 0,
       dnsSearchDomains      = [],
       dnsServers            = [],
-      dockerLabels          = {},
+      dockerLabels          = var.task.dockerLabels,
       dockerSecurityOptions = [],
       entryPoint            = [],
       environment           = var.task.environment,

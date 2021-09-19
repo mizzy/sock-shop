@@ -21,6 +21,7 @@ variable "task" {
       name  = string
       value = string
     }))
+    dockerLabels = map(string)
   })
 }
 

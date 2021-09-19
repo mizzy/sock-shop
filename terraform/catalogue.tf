@@ -67,6 +67,7 @@ module "ecs_catalogue" {
         value = "http://zipkin:9411/api/v1/spans"
       }
     ]
+    dockerLabels = {}
   }
 
   registry = {

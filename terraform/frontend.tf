@@ -68,6 +68,7 @@ module "ecs_frontend" {
         value = "true"
       },
     ]
+    dockerLabels = {}
   }
 
   registry = {
