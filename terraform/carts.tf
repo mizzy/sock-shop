@@ -3,7 +3,7 @@ resource "aws_ecs_service" "carts" {
   desired_count   = 1
   launch_type     = "FARGATE"
   cluster         = aws_ecs_cluster.sock_shop.id
-  task_definition = "${aws_ecs_task_definition.carts.id}:${aws_ecs_task_definition.carts.revision}"
+  task_definition = module.ecs_carts.task_definition
 
   network_configuration {
     assign_public_ip = true
@@ -19,53 +19,16 @@ resource "aws_ecs_service" "carts" {
   }
 }
 
-resource "aws_ecs_task_definition" "carts" {
-  container_definitions = jsonencode([
-    {
-      name                  = "carts",
-      command               = [],
-      cpu                   = 0,
-      dnsSearchDomains      = [],
-      dnsServers            = [],
-      dockerLabels          = {},
-      dockerSecurityOptions = [],
-      entryPoint            = [],
-      environment           = [],
-      environmentFiles      = [],
-      extraHosts            = [],
-      links                 = [],
-      mountPoints           = [],
-      secrets               = [],
-      systemControls        = [],
-      ulimits               = [],
-      volumesFrom           = [],
-      essential             = true,
-      image                 = "weaveworksdemos/carts:0.4.8",
-      logConfiguration = {
-        secretOptions = [],
-        logDriver     = "awslogs",
-        options = {
-          awslogs-group         = "sock-shop",
-          awslogs-region        = data.aws_region.current.name,
-          awslogs-stream-prefix = "carts",
-        }
-      },
-      portMappings = [
-        {
-          containerPort = 80,
-          hostPort      = 80,
-          protocol      = "tcp",
-        }
-      ],
-    }
-  ])
-
-  cpu    = 256
-  memory = 1024
-
-  execution_role_arn       = aws_iam_role.ecs_task_execution_role.arn
-  family                   = "sock-shop-CartsTask-eIq5v1xKpl13"
-  requires_compatibilities = ["FARGATE"]
+module "ecs_carts" {
+  source = "./modules/ecs"
+  task = {
+    name               = "carts"
+    image              = "weaveworksdemos/carts:0.4.8"
+    family             = "sock-shop-CartsTask-eIq5v1xKpl13"
+    execution_role_arn = aws_iam_role.ecs_task_execution_role.arn
+    port               = 80
+    memory             = 1024
+  }
 }
 
 resource "aws_service_discovery_service" "carts" {
