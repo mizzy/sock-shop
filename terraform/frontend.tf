@@ -17,10 +17,24 @@ resource "aws_lb_target_group" "frontend" {
 
 resource "aws_lb_listener" "frontend" {
   load_balancer_arn = aws_lb.frontend.arn
-  port = 80
-  protocol = "HTTP"
+  port              = 80
+  protocol          = "HTTP"
   default_action {
-    type = "forward"
+    type             = "forward"
     target_group_arn = aws_lb_target_group.frontend.arn
+  }
+}
+
+resource "aws_lb_listener_rule" "frontend" {
+  priority     = 1
+  listener_arn = aws_lb_listener.frontend.arn
+  action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.frontend.arn
+  }
+  condition {
+    path_pattern {
+      values = ["*"]
+    }
   }
 }
