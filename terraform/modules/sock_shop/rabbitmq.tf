@@ -1,5 +1,5 @@
 module "ecs_rabbitmq" {
-  source = "./modules/ecs"
+  source = "../ecs"
 
   service = {
     name               = "sock-shop-RabbitMQService-TQCQxjCK5zIf"

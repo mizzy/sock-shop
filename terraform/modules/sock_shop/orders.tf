@@ -17,7 +17,7 @@ resource "aws_dynamodb_table" "orders" {
 }
 
 module "ecs_orders" {
-  source = "./modules/ecs"
+  source = "../ecs"
 
   service = {
     name               = "sock-shop-OrdersService-vKEiumEDxDGY"

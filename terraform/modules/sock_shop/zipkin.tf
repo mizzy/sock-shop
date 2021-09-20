@@ -34,7 +34,7 @@ resource "aws_lb_listener_rule" "zipkin" {
 }
 
 module "ecs_zipkin" {
-  source = "./modules/ecs"
+  source = "../ecs"
 
   service = {
     name               = "sock-shop-ZipkinService-1eV4WLC8fHCo"

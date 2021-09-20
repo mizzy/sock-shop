@@ -40,7 +40,7 @@ resource "aws_lb_listener_rule" "frontend" {
 }
 
 module "ecs_frontend" {
-  source = "./modules/ecs"
+  source = "../ecs"
 
   service = {
     name               = "sock-shop-FrontEndService-k3P0fqY2J0CD"

@@ -1,5 +1,5 @@
 module "ecs_zipkin_cron" {
-  source = "./modules/ecs"
+  source = "../ecs"
 
   service = {
     name               = "sock-shop-ZipkinCronService-0TaWGFJtHFUC"

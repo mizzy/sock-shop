@@ -1,5 +1,5 @@
 module "ecs_user_db" {
-  source = "./modules/ecs"
+  source = "../ecs"
 
   service = {
     name               = "sock-shop-UserDBService-bcNIEWFwyFiJ"

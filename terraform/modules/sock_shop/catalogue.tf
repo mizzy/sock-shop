@@ -50,7 +50,7 @@ resource "aws_db_instance" "catalogue" {
 
 ### ECS
 module "ecs_catalogue" {
-  source = "./modules/ecs"
+  source = "../ecs"
 
   service = {
     name               = "sock-shop-CatalogueService-mVp9BfkdbXVD"

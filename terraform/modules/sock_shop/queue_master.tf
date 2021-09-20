@@ -1,5 +1,5 @@
 module "ecs_queue_master" {
-  source = "./modules/ecs"
+  source = "../ecs"
 
   service = {
     name               = "sock-shop-QueueMasterService-aJBpJZ5ztMnu"
