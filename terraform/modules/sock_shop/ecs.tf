@@ -1,3 +1,7 @@
+resource "aws_cloudwatch_log_group" "sock_shop" {
+  name = "sock-shop"
+}
+
 data "aws_iam_policy_document" "ecs_tasks_assume_role_policy" {
   version = "2008-10-17"
   statement {
