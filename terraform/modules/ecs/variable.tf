@@ -41,6 +41,7 @@ variable "task" {
       containerPath = string
       sourceVolume  = string
     })))
+    entryPoint = optional(list(string))
   })
 }
 
@@ -49,4 +50,5 @@ variable "registry" {
     name         = string
     namespace_id = string
   })
+  default = null
 }

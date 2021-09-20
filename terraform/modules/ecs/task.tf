@@ -17,7 +17,7 @@ resource "aws_ecs_task_definition" "main" {
       dnsServers            = [],
       dockerLabels          = local.task.dockerLabels,
       dockerSecurityOptions = [],
-      entryPoint            = [],
+      entryPoint            = local.task.entryPoint,
       environment           = local.task.environment,
       environmentFiles      = [],
       extraHosts            = [],

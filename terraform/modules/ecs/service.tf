@@ -11,8 +11,11 @@ resource "aws_ecs_service" "main" {
     subnets          = var.service.subnet_ids
   }
 
-  service_registries {
-    registry_arn = aws_service_discovery_service.main.arn
+  dynamic "service_registries" {
+    for_each = var.registry == null ? [] : [aws_service_discovery_service.main[0].arn]
+    content {
+      registry_arn = service_registries.value
+    }
   }
 
   dynamic "load_balancer" {

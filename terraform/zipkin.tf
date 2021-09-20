@@ -76,7 +76,6 @@ module "ecs_zipkin" {
         name  = "MYSQL_PASS",
         value = "zipkin",
       }
-
     ]
     cpu    = 512
     memory = 1024
