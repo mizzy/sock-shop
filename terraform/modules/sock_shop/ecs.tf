@@ -1,5 +1,6 @@
 resource "aws_cloudwatch_log_group" "sock_shop" {
-  name = "sock-shop"
+  name              = "sock-shop"
+  retention_in_days = 7
 }
 
 data "aws_iam_policy_document" "ecs_tasks_assume_role_policy" {
