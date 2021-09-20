@@ -45,6 +45,8 @@ resource "aws_ecs_task_definition" "main" {
   cpu    = local.task.cpu
   memory = local.task.memory
 
+  network_mode = "awsvpc"
+
   execution_role_arn       = local.task.execution_role_arn
   task_role_arn            = local.task.task_role_arn
   family                   = local.task.family
