@@ -4,7 +4,6 @@ resource "aws_instance" "rds_importer" {
   associate_public_ip_address = true
   vpc_security_group_ids      = [aws_security_group.ecs.id]
   subnet_id                   = aws_subnet.public_subnet_1.id
-  key_name                    = "sock-shop-cloudformation"
 
   user_data = <<EOF
 #!/bin/bash -xe
