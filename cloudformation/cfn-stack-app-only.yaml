@@ -43,6 +43,7 @@ Resources:
     Type: AWS::Logs::LogGroup
     Properties:
       LogGroupName: !Ref 'AWS::StackName'
+      RetentionInDays: 7
   DynamoDbTaskRole:
     Type: AWS::IAM::Role
     Properties:
