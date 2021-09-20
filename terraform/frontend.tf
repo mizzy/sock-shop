@@ -1,4 +1,4 @@
-resource "aws_lb" "frontend" {
+resource "aws_lb" "lb" {
   name         = "sockshop"
   idle_timeout = 30
   subnets = [
@@ -16,7 +16,7 @@ resource "aws_lb_target_group" "frontend" {
 }
 
 resource "aws_lb_listener" "frontend" {
-  load_balancer_arn = aws_lb.frontend.arn
+  load_balancer_arn = aws_lb.lb.arn
   port              = 80
   protocol          = "HTTP"
   default_action {
