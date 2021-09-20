@@ -42,6 +42,7 @@ resource "aws_ecs_cluster" "sock_shop" {
 ### Security Groups
 
 resource "aws_security_group" "ecs" {
+  vpc_id      = aws_vpc.sock_shop.id
   description = "ECS Allowed Ports"
   tags = {
     "Name" = "ecs"
@@ -73,4 +74,13 @@ resource "aws_security_group_rule" "ecs_allow_all_from_self" {
   from_port                = 0
   to_port                  = 65536
   source_security_group_id = aws_security_group.ecs.id
+}
+
+resource "aws_security_group_rule" "ecs_allow_to_all" {
+  type              = "egress"
+  security_group_id = aws_security_group.ecs.id
+  from_port         = 0
+  to_port           = 65536
+  protocol          = -1
+  cidr_blocks       = ["0.0.0.0/0"]
 }

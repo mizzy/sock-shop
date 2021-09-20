@@ -3,16 +3,27 @@
 resource "aws_security_group" "db_ec2" {
   description = "Open database for access"
 
-  ingress {
-    protocol        = "tcp"
-    from_port       = 3306
-    to_port         = 3306
-    security_groups = [aws_security_group.ecs.id]
-  }
-
   tags = {
     "Name" = "db-ecs"
   }
+}
+
+resource "aws_security_group_rule" "db_ec2_allow_from_sg" {
+  type                     = "ingress"
+  security_group_id        = aws_security_group.db_ec2.id
+  from_port                = 3306
+  to_port                  = 3306
+  protocol                 = "tcp"
+  source_security_group_id = aws_security_group.ecs.id
+}
+
+resource "aws_security_group_rule" "db_ec2_allow_to_all" {
+  type              = "egress"
+  security_group_id = aws_security_group.db_ec2.id
+  from_port         = 0
+  to_port           = 65536
+  protocol          = -1
+  cidr_blocks       = ["0.0.0.0/0"]
 }
 
 resource "aws_db_subnet_group" "my_db_subnet_group" {
