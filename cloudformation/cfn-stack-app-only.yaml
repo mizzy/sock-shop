@@ -1190,7 +1190,7 @@ Resources:
             Options:
               awslogs-group: !Ref 'AWS::StackName'
               awslogs-region: !Ref 'AWS::Region'
-              awslogs-stream-prefix: zipkin-db
+              awslogs-stream-prefix: zipkin-mysql
           PortMappings:
             - ContainerPort: 3306
       Volumes: []
