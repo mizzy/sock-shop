@@ -4,8 +4,8 @@ terraform {
     profile        = "management"
     dynamodb_table = "terraform"
     bucket         = "terraform.mizzy.org"
-    key            = "sock-shop.tfstate"
-    session_name   = "sock-shop"
+    key            = "sock-shop-cloudformation.tfstate"
+    session_name   = "sock-shop-cloudformation"
     encrypt        = true
   }
 }
