@@ -1,6 +1,7 @@
 ### Database
 
 resource "aws_security_group" "db_ec2" {
+  vpc_id      = aws_vpc.sock_shop.id
   description = "Open database for access"
 
   tags = {

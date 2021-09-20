@@ -1,4 +1,5 @@
 resource "aws_security_group" "elb_allowed_ports" {
+  vpc_id      = aws_vpc.sock_shop.id
   description = "ELB Allowed Ports"
   tags = {
     "Name" = "elb-allowed-ports"

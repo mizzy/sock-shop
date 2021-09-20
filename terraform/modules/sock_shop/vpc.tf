@@ -16,8 +16,8 @@ resource "aws_vpc_dhcp_options_association" "local" {
 }
 
 resource "aws_subnet" "public_subnet_1" {
-  cidr_block = "172.31.0.0/24"
-  vpc_id     = aws_vpc.sock_shop.id
+  cidr_block        = "172.31.0.0/24"
+  vpc_id            = aws_vpc.sock_shop.id
   availability_zone = "ap-northeast-1a"
   tags = {
     "Name" = "public-subnet-1"
@@ -25,8 +25,8 @@ resource "aws_subnet" "public_subnet_1" {
 }
 
 resource "aws_subnet" "public_subnet_2" {
-  cidr_block = "172.31.1.0/24"
-  vpc_id     = aws_vpc.sock_shop.id
+  cidr_block        = "172.31.1.0/24"
+  vpc_id            = aws_vpc.sock_shop.id
   availability_zone = "ap-northeast-1c"
   tags = {
     "Name" = "public-subnet-2"
