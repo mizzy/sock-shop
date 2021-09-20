@@ -28,6 +28,7 @@ variable "task" {
       hostPort      = number
       protocol      = optional(string)
     })))
+    cpu     = optional(number)
     memory  = optional(number)
     command = optional(list(string))
     environment = optional(list(object({

@@ -1,5 +1,6 @@
 locals {
   task = defaults(var.task, {
+    cpu    = 256
     memory = 512
   })
 }
@@ -41,7 +42,7 @@ resource "aws_ecs_task_definition" "main" {
     }
   ])
 
-  cpu    = 256
+  cpu    = local.task.cpu
   memory = local.task.memory
 
   execution_role_arn       = local.task.execution_role_arn
