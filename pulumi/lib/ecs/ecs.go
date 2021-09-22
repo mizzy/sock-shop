@@ -8,6 +8,8 @@ func NewEcs(ctx *pulumi.Context) error {
 		newDynamoDbTaskRole,
 		newEcsTaskExecutionRole,
 		newSeriveDiscovery,
+		newCluster,
+		newSecurityGroup,
 	}
 
 	for _, r := range resources {
