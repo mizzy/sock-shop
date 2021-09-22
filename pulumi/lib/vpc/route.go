@@ -13,5 +13,12 @@ func newRoutes(ctx *pulumi.Context) error {
 		return err
 	}
 
+	_, err = ec2.NewRouteTable(ctx, "route_via_igw", &ec2.RouteTableArgs{
+		VpcId: Vpc.ID(),
+	})
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
