@@ -10,8 +10,8 @@ import (
 func main() {
 	pulumi.Run(func(ctx *pulumi.Context) error {
 		err := vpc.NewVpc(ctx)
-		err = ecs.NewEcs(ctx)
 		err = lb.NewLb(ctx)
+		err = ecs.NewEcs(ctx)
 		return err
 	})
 }

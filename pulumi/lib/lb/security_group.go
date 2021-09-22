@@ -10,7 +10,7 @@ var ElbSecurityGroup *ec2.SecurityGroup
 
 func newSecurityGroup(ctx *pulumi.Context) error {
 	var err error
-	ElbSecurityGroup, err := ec2.NewSecurityGroup(ctx, "elb_allowed_ports", &ec2.SecurityGroupArgs{
+	ElbSecurityGroup, err = ec2.NewSecurityGroup(ctx, "elb_allowed_ports", &ec2.SecurityGroupArgs{
 		Description:         pulumi.String("ELB Allowed Ports"),
 		Name:                pulumi.String("sock-shop-ElbSecurityGroup-IK7UY8L0AXDX"),
 		RevokeRulesOnDelete: pulumi.Bool(false),
