@@ -23,7 +23,7 @@ func NewVpc(ctx *pulumi.Context) error {
 }
 
 func vpc(ctx *pulumi.Context) error {
-	_, err := ec2.NewVpc(ctx, "sock-shop", &ec2.VpcArgs{
+	vpc, err := ec2.NewVpc(ctx, "sock-shop", &ec2.VpcArgs{
 		AssignGeneratedIpv6CidrBlock: pulumi.Bool(false),
 		CidrBlock:                    pulumi.String("172.31.0.0/16"),
 		EnableDnsSupport:             pulumi.Bool(true),
@@ -37,11 +37,19 @@ func vpc(ctx *pulumi.Context) error {
 		return err
 	}
 
-	_, err = ec2.NewVpcDhcpOptions(ctx, "local", &ec2.VpcDhcpOptionsArgs{
+	dhcpOptions, err := ec2.NewVpcDhcpOptions(ctx, "local", &ec2.VpcDhcpOptionsArgs{
 		DomainName: pulumi.String("local"),
 		DomainNameServers: pulumi.StringArray{
 			pulumi.String("AmazonProvidedDNS"),
 		},
+	})
+	if err != nil {
+		return err
+	}
+
+	_, err = ec2.NewVpcDhcpOptionsAssociation(ctx, "local", &ec2.VpcDhcpOptionsAssociationArgs{
+		DhcpOptionsId: dhcpOptions.ID(),
+		VpcId:         vpc.ID(),
 	})
 	if err != nil {
 		return err
