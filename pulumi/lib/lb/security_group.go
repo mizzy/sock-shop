@@ -20,7 +20,7 @@ func newSecurityGroup(ctx *pulumi.Context) error {
 		return err
 	}
 
-	_, err = ec2.NewSecurityGroupRule(ctx, "aws_security_group_rule", &ec2.SecurityGroupRuleArgs{
+	_, err = ec2.NewSecurityGroupRule(ctx, "elb_allowed_port_http", &ec2.SecurityGroupRuleArgs{
 		CidrBlocks: pulumi.StringArray{
 			pulumi.String("0.0.0.0/0"),
 		},
@@ -28,6 +28,20 @@ func newSecurityGroup(ctx *pulumi.Context) error {
 		Protocol:        pulumi.String("tcp"),
 		SecurityGroupId: sg.ID(),
 		ToPort:          pulumi.Int(80),
+		Type:            pulumi.String("ingress"),
+	})
+	if err != nil {
+		return err
+	}
+
+	_, err = ec2.NewSecurityGroupRule(ctx, "elb_allowed_port_zipkin", &ec2.SecurityGroupRuleArgs{
+		CidrBlocks: pulumi.StringArray{
+			pulumi.String("0.0.0.0/0"),
+		},
+		FromPort:        pulumi.Int(9411),
+		Protocol:        pulumi.String("tcp"),
+		SecurityGroupId: sg.ID(),
+		ToPort:          pulumi.Int(9411),
 		Type:            pulumi.String("ingress"),
 	})
 	if err != nil {
