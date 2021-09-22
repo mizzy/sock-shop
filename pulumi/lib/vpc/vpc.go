@@ -5,9 +5,12 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
+var vpc *ec2.Vpc
+
 func NewVpc(ctx *pulumi.Context) error {
 	resources := []func(ctx *pulumi.Context) error{
-		vpc,
+		newVpc,
+		newSubnet,
 	}
 
 	for _, r := range resources {
@@ -22,8 +25,9 @@ func NewVpc(ctx *pulumi.Context) error {
 
 }
 
-func vpc(ctx *pulumi.Context) error {
-	vpc, err := ec2.NewVpc(ctx, "sock_shop", &ec2.VpcArgs{
+func newVpc(ctx *pulumi.Context) error {
+	var err error
+	vpc, err = ec2.NewVpc(ctx, "sock_shop", &ec2.VpcArgs{
 		AssignGeneratedIpv6CidrBlock: pulumi.Bool(false),
 		CidrBlock:                    pulumi.String("172.31.0.0/16"),
 		EnableDnsSupport:             pulumi.Bool(true),
@@ -50,6 +54,38 @@ func vpc(ctx *pulumi.Context) error {
 	_, err = ec2.NewVpcDhcpOptionsAssociation(ctx, "local", &ec2.VpcDhcpOptionsAssociationArgs{
 		DhcpOptionsId: dhcpOptions.ID(),
 		VpcId:         vpc.ID(),
+	})
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func newSubnet(ctx *pulumi.Context) error {
+	_, err := ec2.NewSubnet(ctx, "public_subnet_1", &ec2.SubnetArgs{
+		AssignIpv6AddressOnCreation: pulumi.Bool(false),
+		CidrBlock:                   pulumi.String("172.31.0.0/24"),
+		MapPublicIpOnLaunch:         pulumi.Bool(false),
+		AvailabilityZone:            pulumi.String("ap-northeast-1a"),
+		Tags: pulumi.StringMap{
+			"Name": pulumi.String("public-subnet-1"),
+		},
+		VpcId: vpc.ID(),
+	})
+	if err != nil {
+		return err
+	}
+
+	_, err = ec2.NewSubnet(ctx, "public_subnet_2", &ec2.SubnetArgs{
+		AssignIpv6AddressOnCreation: pulumi.Bool(false),
+		CidrBlock:                   pulumi.String("172.31.1.0/24"),
+		MapPublicIpOnLaunch:         pulumi.Bool(false),
+		AvailabilityZone:            pulumi.String("ap-northeast-1c"),
+		Tags: pulumi.StringMap{
+			"Name": pulumi.String("public-subnet-2"),
+		},
+		VpcId: vpc.ID(),
 	})
 	if err != nil {
 		return err
