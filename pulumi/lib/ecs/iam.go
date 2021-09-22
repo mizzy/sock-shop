@@ -5,7 +5,7 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-func dynamoDbTaskRole(ctx *pulumi.Context) error {
+func newDynamoDbTaskRole(ctx *pulumi.Context) error {
 	role, err := iam.NewRole(ctx, "dynamodb_task_role", &iam.RoleArgs{
 		AssumeRolePolicy:    pulumi.Any("{\"Version\":\"2008-10-17\",\"Statement\":[{\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"ecs-tasks.amazonaws.com\"},\"Action\":\"sts:AssumeRole\"}]}"),
 		ForceDetachPolicies: pulumi.Bool(false),
@@ -28,7 +28,7 @@ func dynamoDbTaskRole(ctx *pulumi.Context) error {
 	return nil
 }
 
-func ecsTaskExecutionRole(ctx *pulumi.Context) error {
+func newEcsTaskExecutionRole(ctx *pulumi.Context) error {
 	role, err := iam.NewRole(ctx, "ecs_task_execution_role", &iam.RoleArgs{
 		AssumeRolePolicy:    pulumi.Any("{\"Version\":\"2008-10-17\",\"Statement\":[{\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"ecs-tasks.amazonaws.com\"},\"Action\":\"sts:AssumeRole\"}]}"),
 		ForceDetachPolicies: pulumi.Bool(false),

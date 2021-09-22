@@ -4,9 +4,9 @@ import "github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 
 func NewEcs(ctx *pulumi.Context) error {
 	resources := []func(ctx *pulumi.Context) error{
-		cloudWatchLogs,
-		dynamoDbTaskRole,
-		ecsTaskExecutionRole,
+		newCloudWatchLogs,
+		newDynamoDbTaskRole,
+		newEcsTaskExecutionRole,
 	}
 
 	for _, r := range resources {

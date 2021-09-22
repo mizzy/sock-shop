@@ -5,7 +5,7 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-func cloudWatchLogs(ctx *pulumi.Context) error {
+func newCloudWatchLogs(ctx *pulumi.Context) error {
 	_, err := cloudwatch.NewLogGroup(ctx, "sock-shop", &cloudwatch.LogGroupArgs{
 		Name:            pulumi.String("sock-shop"),
 		RetentionInDays: pulumi.Int(7),
