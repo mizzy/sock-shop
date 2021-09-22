@@ -6,7 +6,7 @@ import (
 )
 
 func newCloudWatchLogs(ctx *pulumi.Context) error {
-	_, err := cloudwatch.NewLogGroup(ctx, "sock-shop", &cloudwatch.LogGroupArgs{
+	_, err := cloudwatch.NewLogGroup(ctx, "sock_shop", &cloudwatch.LogGroupArgs{
 		Name:            pulumi.String("sock-shop"),
 		RetentionInDays: pulumi.Int(7),
 	})
