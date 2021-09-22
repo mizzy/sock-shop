@@ -6,6 +6,7 @@ func NewEcs(ctx *pulumi.Context) error {
 	resources := []func(ctx *pulumi.Context) error{
 		cloudWatchLogs,
 		dynamoDbTaskRole,
+		ecsTaskExecutionRole,
 	}
 
 	for _, r := range resources {
