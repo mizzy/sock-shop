@@ -6,7 +6,7 @@ import (
 )
 
 func dynamoDbTaskRole(ctx *pulumi.Context) error {
-	role, err := iam.NewRole(ctx, "sock-shop-DynamoDbTaskRole", &iam.RoleArgs{
+	role, err := iam.NewRole(ctx, "dynamodb_task_role", &iam.RoleArgs{
 		AssumeRolePolicy:    pulumi.Any("{\"Version\":\"2008-10-17\",\"Statement\":[{\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"ecs-tasks.amazonaws.com\"},\"Action\":\"sts:AssumeRole\"}]}"),
 		ForceDetachPolicies: pulumi.Bool(false),
 		MaxSessionDuration:  pulumi.Int(3600),
@@ -29,7 +29,7 @@ func dynamoDbTaskRole(ctx *pulumi.Context) error {
 }
 
 func ecsTaskExecutionRole(ctx *pulumi.Context) error {
-	role, err := iam.NewRole(ctx, "sock-shop-EcsTaskExecutionRole", &iam.RoleArgs{
+	role, err := iam.NewRole(ctx, "ecs_task_execution_role", &iam.RoleArgs{
 		AssumeRolePolicy:    pulumi.Any("{\"Version\":\"2008-10-17\",\"Statement\":[{\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"ecs-tasks.amazonaws.com\"},\"Action\":\"sts:AssumeRole\"}]}"),
 		ForceDetachPolicies: pulumi.Bool(false),
 		MaxSessionDuration:  pulumi.Int(3600),

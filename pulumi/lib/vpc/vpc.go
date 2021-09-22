@@ -23,7 +23,7 @@ func NewVpc(ctx *pulumi.Context) error {
 }
 
 func vpc(ctx *pulumi.Context) error {
-	vpc, err := ec2.NewVpc(ctx, "sock-shop", &ec2.VpcArgs{
+	vpc, err := ec2.NewVpc(ctx, "sock_shop", &ec2.VpcArgs{
 		AssignGeneratedIpv6CidrBlock: pulumi.Bool(false),
 		CidrBlock:                    pulumi.String("172.31.0.0/16"),
 		EnableDnsSupport:             pulumi.Bool(true),
