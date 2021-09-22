@@ -7,7 +7,7 @@ import (
 )
 
 func newSecurityGroup(ctx *pulumi.Context) error {
-	_, err := ec2.NewSecurityGroup(ctx, "ecs", &ec2.SecurityGroupArgs{
+	sg, err := ec2.NewSecurityGroup(ctx, "ecs", &ec2.SecurityGroupArgs{
 		Description:         pulumi.String("ECS Allowed Ports"),
 		Name:                pulumi.String("sock-shop-EcsSecurityGroup-1JN0GGW02EK2G"),
 		RevokeRulesOnDelete: pulumi.Bool(false),
@@ -15,6 +15,20 @@ func newSecurityGroup(ctx *pulumi.Context) error {
 		Tags: pulumi.StringMap{
 			"Name": pulumi.String("ecs"),
 		},
+	})
+	if err != nil {
+		return err
+	}
+
+	_, err = ec2.NewSecurityGroupRule(ctx, "ecs_allow_ssh_from_all", &ec2.SecurityGroupRuleArgs{
+		CidrBlocks: pulumi.StringArray{
+			pulumi.String("0.0.0.0/0"),
+		},
+		FromPort:        pulumi.Int(22),
+		Protocol:        pulumi.String("tcp"),
+		SecurityGroupId: sg.ID(),
+		ToPort:          pulumi.Int(22),
+		Type:            pulumi.String("ingress"),
 	})
 	if err != nil {
 		return err
