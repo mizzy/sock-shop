@@ -59,5 +59,19 @@ func newSecurityGroup(ctx *pulumi.Context) error {
 		return err
 	}
 
+	_, err = ec2.NewSecurityGroupRule(ctx, "ecs_allow_to_all", &ec2.SecurityGroupRuleArgs{
+		CidrBlocks: pulumi.StringArray{
+			pulumi.String("0.0.0.0/0"),
+		},
+		FromPort:        pulumi.Int(0),
+		Protocol:        pulumi.String("-1"),
+		SecurityGroupId: sg.ID(),
+		ToPort:          pulumi.Int(0),
+		Type:            pulumi.String("egress"),
+	})
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
