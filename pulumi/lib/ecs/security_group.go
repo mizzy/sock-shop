@@ -47,5 +47,17 @@ func newSecurityGroup(ctx *pulumi.Context) error {
 		return err
 	}
 
+	_, err = ec2.NewSecurityGroupRule(ctx, "ecs_allow_all_from_self", &ec2.SecurityGroupRuleArgs{
+		FromPort:        pulumi.Int(0),
+		Protocol:        pulumi.String("-1"),
+		SecurityGroupId: sg.ID(),
+		Self:            pulumi.Bool(true),
+		ToPort:          pulumi.Int(0),
+		Type:            pulumi.String("ingress"),
+	})
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
