@@ -11,6 +11,7 @@ func NewVpc(ctx *pulumi.Context) error {
 	resources := []func(ctx *pulumi.Context) error{
 		newVpc,
 		newSubnets,
+		newRoutes,
 	}
 
 	for _, r := range resources {
