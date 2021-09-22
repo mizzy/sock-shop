@@ -6,8 +6,11 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
+var ElbSecurityGroup *ec2.SecurityGroup
+
 func newSecurityGroup(ctx *pulumi.Context) error {
-	sg, err := ec2.NewSecurityGroup(ctx, "elb_allowed_ports", &ec2.SecurityGroupArgs{
+	var err error
+	ElbSecurityGroup, err := ec2.NewSecurityGroup(ctx, "elb_allowed_ports", &ec2.SecurityGroupArgs{
 		Description:         pulumi.String("ELB Allowed Ports"),
 		Name:                pulumi.String("sock-shop-ElbSecurityGroup-IK7UY8L0AXDX"),
 		RevokeRulesOnDelete: pulumi.Bool(false),
@@ -26,7 +29,7 @@ func newSecurityGroup(ctx *pulumi.Context) error {
 		},
 		FromPort:        pulumi.Int(80),
 		Protocol:        pulumi.String("tcp"),
-		SecurityGroupId: sg.ID(),
+		SecurityGroupId: ElbSecurityGroup.ID(),
 		ToPort:          pulumi.Int(80),
 		Type:            pulumi.String("ingress"),
 	})
@@ -40,7 +43,7 @@ func newSecurityGroup(ctx *pulumi.Context) error {
 		},
 		FromPort:        pulumi.Int(9411),
 		Protocol:        pulumi.String("tcp"),
-		SecurityGroupId: sg.ID(),
+		SecurityGroupId: ElbSecurityGroup.ID(),
 		ToPort:          pulumi.Int(9411),
 		Type:            pulumi.String("ingress"),
 	})
@@ -54,7 +57,7 @@ func newSecurityGroup(ctx *pulumi.Context) error {
 		},
 		FromPort:        pulumi.Int(0),
 		Protocol:        pulumi.String("-1"),
-		SecurityGroupId: sg.ID(),
+		SecurityGroupId: ElbSecurityGroup.ID(),
 		ToPort:          pulumi.Int(0),
 		Type:            pulumi.String("egress"),
 	}, pulumi.Protect(true))
