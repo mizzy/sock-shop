@@ -6,6 +6,8 @@ import (
 )
 
 var Vpc *ec2.Vpc
+var PublicSubnet1 *ec2.Subnet
+var PublicSubnet2 *ec2.Subnet
 
 func NewVpc(ctx *pulumi.Context) error {
 	resources := []func(ctx *pulumi.Context) error{
@@ -64,7 +66,8 @@ func newVpc(ctx *pulumi.Context) error {
 }
 
 func newSubnets(ctx *pulumi.Context) error {
-	_, err := ec2.NewSubnet(ctx, "public_subnet_1", &ec2.SubnetArgs{
+	var err error
+	PublicSubnet1, err = ec2.NewSubnet(ctx, "public_subnet_1", &ec2.SubnetArgs{
 		AssignIpv6AddressOnCreation: pulumi.Bool(false),
 		CidrBlock:                   pulumi.String("172.31.0.0/24"),
 		MapPublicIpOnLaunch:         pulumi.Bool(false),
@@ -78,7 +81,7 @@ func newSubnets(ctx *pulumi.Context) error {
 		return err
 	}
 
-	_, err = ec2.NewSubnet(ctx, "public_subnet_2", &ec2.SubnetArgs{
+	PublicSubnet2, err = ec2.NewSubnet(ctx, "public_subnet_2", &ec2.SubnetArgs{
 		AssignIpv6AddressOnCreation: pulumi.Bool(false),
 		CidrBlock:                   pulumi.String("172.31.1.0/24"),
 		MapPublicIpOnLaunch:         pulumi.Bool(false),
