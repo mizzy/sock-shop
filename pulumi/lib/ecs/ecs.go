@@ -1,6 +1,9 @@
 package ecs
 
-import "github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+import (
+	"github.com/mizzy/sock-shop/pulumi/lib/ecs/frontend"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+)
 
 func NewEcs(ctx *pulumi.Context) error {
 	resources := []func(ctx *pulumi.Context) error{
@@ -10,6 +13,7 @@ func NewEcs(ctx *pulumi.Context) error {
 		newSeriveDiscovery,
 		newCluster,
 		newSecurityGroup,
+		frontend.NewFrontEnd,
 	}
 
 	for _, r := range resources {
