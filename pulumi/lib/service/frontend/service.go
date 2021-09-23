@@ -15,6 +15,7 @@ func newService(ctx *pulumi.Context) error {
 		DesiredCount:                    pulumi.Int(1),
 		EnableEcsManagedTags:            pulumi.Bool(false),
 		EnableExecuteCommand:            pulumi.Bool(false),
+		LaunchType:                      pulumi.String("FARGATE"),
 		LoadBalancers: ecs.ServiceLoadBalancerArray{
 			&ecs.ServiceLoadBalancerArgs{
 				ContainerName:  pulumi.String("front-end"),
@@ -35,7 +36,7 @@ func newService(ctx *pulumi.Context) error {
 		},
 		SchedulingStrategy: pulumi.String("REPLICA"),
 		ServiceRegistries: &ecs.ServiceServiceRegistriesArgs{
-			RegistryArn: pulumi.String("arn:aws:servicediscovery:ap-northeast-1:165529706060:service/srv-vfbovvufekcxoqwz"),
+			RegistryArn: registry.Arn,
 		},
 		TaskDefinition:     taskDef.Arn,
 		WaitForSteadyState: pulumi.Bool(false),
