@@ -5,7 +5,8 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-var taskExecutionRole *iam.Role
+var TaskExecutionRole *iam.Role
+var TaskRole *iam.Role
 
 func newDynamoDbTaskRole(ctx *pulumi.Context) error {
 	role, err := iam.NewRole(ctx, "dynamodb_task_role", &iam.RoleArgs{
@@ -32,7 +33,7 @@ func newDynamoDbTaskRole(ctx *pulumi.Context) error {
 
 func newEcsTaskExecutionRole(ctx *pulumi.Context) error {
 	var err error
-	taskExecutionRole, err = iam.NewRole(ctx, "ecs_task_execution_role", &iam.RoleArgs{
+	TaskExecutionRole, err = iam.NewRole(ctx, "ecs_task_execution_role", &iam.RoleArgs{
 		AssumeRolePolicy:    pulumi.Any("{\"Version\":\"2008-10-17\",\"Statement\":[{\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"ecs-tasks.amazonaws.com\"},\"Action\":\"sts:AssumeRole\"}]}"),
 		ForceDetachPolicies: pulumi.Bool(false),
 		MaxSessionDuration:  pulumi.Int(3600),
@@ -45,7 +46,7 @@ func newEcsTaskExecutionRole(ctx *pulumi.Context) error {
 
 	_, err = iam.NewRolePolicyAttachment(ctx, "ecs_task_execution_role-amazon_ecs_task_execution_role_policy", &iam.RolePolicyAttachmentArgs{
 		PolicyArn: pulumi.String("arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"),
-		Role:      pulumi.Any(taskExecutionRole.Name),
+		Role:      pulumi.Any(TaskExecutionRole.Name),
 	})
 	if err != nil {
 		return err

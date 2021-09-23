@@ -7,6 +7,8 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
+var targetGroup *alb.TargetGroup
+
 func newLb(ctx *pulumi.Context) error {
 	lb, err := alb.NewLoadBalancer(ctx, "lb", &alb.LoadBalancerArgs{
 		DropInvalidHeaderFields:      pulumi.Bool(false),
@@ -26,7 +28,7 @@ func newLb(ctx *pulumi.Context) error {
 		return err
 	}
 
-	tg, err := alb.NewTargetGroup(ctx, "frontend", &alb.TargetGroupArgs{
+	targetGroup, err = alb.NewTargetGroup(ctx, "frontend", &alb.TargetGroupArgs{
 		DeregistrationDelay:            pulumi.Int(300),
 		LambdaMultiValueHeadersEnabled: pulumi.Bool(false),
 		Name:                           pulumi.String("sock-Front-1QDQY0UJQC5EN"),
@@ -44,7 +46,7 @@ func newLb(ctx *pulumi.Context) error {
 	listener, err := alb.NewListener(ctx, "frontend", &alb.ListenerArgs{
 		DefaultActions: alb.ListenerDefaultActionArray{
 			&alb.ListenerDefaultActionArgs{
-				TargetGroupArn: tg.ID(),
+				TargetGroupArn: targetGroup.ID(),
 				Type:           pulumi.String("forward"),
 			},
 		},
@@ -59,7 +61,7 @@ func newLb(ctx *pulumi.Context) error {
 	_, err = alb.NewListenerRule(ctx, "frontend", &alb.ListenerRuleArgs{
 		Actions: &alb.ListenerRuleActionArray{
 			&alb.ListenerRuleActionArgs{
-				TargetGroupArn: tg.Arn,
+				TargetGroupArn: targetGroup.Arn,
 				Type:           pulumi.String("forward"),
 			},
 		},

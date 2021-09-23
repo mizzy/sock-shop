@@ -6,8 +6,11 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
+var PrivateDnsNamespace *servicediscovery.PrivateDnsNamespace
+
 func newSeriveDiscovery(ctx *pulumi.Context) error {
-	_, err := servicediscovery.NewPrivateDnsNamespace(ctx, "local", &servicediscovery.PrivateDnsNamespaceArgs{
+	var err error
+	PrivateDnsNamespace, err = servicediscovery.NewPrivateDnsNamespace(ctx, "local", &servicediscovery.PrivateDnsNamespaceArgs{
 		Name: pulumi.String("local"),
 		Vpc:  vpc.Vpc.ID(),
 	})

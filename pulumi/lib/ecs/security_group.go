@@ -7,8 +7,11 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
+var EcsSecurityGroup *ec2.SecurityGroup
+
 func newSecurityGroup(ctx *pulumi.Context) error {
-	sg, err := ec2.NewSecurityGroup(ctx, "ecs", &ec2.SecurityGroupArgs{
+	var err error
+	EcsSecurityGroup, err = ec2.NewSecurityGroup(ctx, "ecs", &ec2.SecurityGroupArgs{
 		Description:         pulumi.String("ECS Allowed Ports"),
 		Name:                pulumi.String("sock-shop-EcsSecurityGroup-1JN0GGW02EK2G"),
 		RevokeRulesOnDelete: pulumi.Bool(false),
@@ -27,7 +30,7 @@ func newSecurityGroup(ctx *pulumi.Context) error {
 		},
 		FromPort:        pulumi.Int(22),
 		Protocol:        pulumi.String("tcp"),
-		SecurityGroupId: sg.ID(),
+		SecurityGroupId: EcsSecurityGroup.ID(),
 		ToPort:          pulumi.Int(22),
 		Type:            pulumi.String("ingress"),
 	})
@@ -38,7 +41,7 @@ func newSecurityGroup(ctx *pulumi.Context) error {
 	_, err = ec2.NewSecurityGroupRule(ctx, "ecs_allow_all_from_elb", &ec2.SecurityGroupRuleArgs{
 		FromPort:              pulumi.Int(0),
 		Protocol:              pulumi.String("-1"),
-		SecurityGroupId:       sg.ID(),
+		SecurityGroupId:       EcsSecurityGroup.ID(),
 		SourceSecurityGroupId: lb.ElbSecurityGroup.ID(),
 		ToPort:                pulumi.Int(0),
 		Type:                  pulumi.String("ingress"),
@@ -50,7 +53,7 @@ func newSecurityGroup(ctx *pulumi.Context) error {
 	_, err = ec2.NewSecurityGroupRule(ctx, "ecs_allow_all_from_self", &ec2.SecurityGroupRuleArgs{
 		FromPort:        pulumi.Int(0),
 		Protocol:        pulumi.String("-1"),
-		SecurityGroupId: sg.ID(),
+		SecurityGroupId: EcsSecurityGroup.ID(),
 		Self:            pulumi.Bool(true),
 		ToPort:          pulumi.Int(0),
 		Type:            pulumi.String("ingress"),
@@ -65,7 +68,7 @@ func newSecurityGroup(ctx *pulumi.Context) error {
 		},
 		FromPort:        pulumi.Int(0),
 		Protocol:        pulumi.String("-1"),
-		SecurityGroupId: sg.ID(),
+		SecurityGroupId: EcsSecurityGroup.ID(),
 		ToPort:          pulumi.Int(0),
 		Type:            pulumi.String("egress"),
 	})

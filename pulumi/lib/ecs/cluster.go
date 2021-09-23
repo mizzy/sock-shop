@@ -5,8 +5,11 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
+var Cluster *ecs.Cluster
+
 func newCluster(ctx *pulumi.Context) error {
-	_, err := ecs.NewCluster(ctx, "sock_shop", &ecs.ClusterArgs{
+	var err error
+	Cluster, err = ecs.NewCluster(ctx, "sock_shop", &ecs.ClusterArgs{
 		Name: pulumi.String("Sock-Shop"),
 	})
 	if err != nil {
