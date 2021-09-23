@@ -26,5 +26,20 @@ func newLb(ctx *pulumi.Context) error {
 		return err
 	}
 
+	_, err = alb.NewTargetGroup(ctx, "frontend", &alb.TargetGroupArgs{
+		DeregistrationDelay:            pulumi.Int(300),
+		LambdaMultiValueHeadersEnabled: pulumi.Bool(false),
+		Name:                           pulumi.String("sock-Front-1QDQY0UJQC5EN"),
+		Port:                           pulumi.Int(8079),
+		Protocol:                       pulumi.String("HTTP"),
+		ProxyProtocolV2:                pulumi.Bool(false),
+		SlowStart:                      pulumi.Int(0),
+		TargetType:                     pulumi.String("ip"),
+		VpcId:                          vpc.Vpc.ID(),
+	})
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
