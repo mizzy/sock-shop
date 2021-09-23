@@ -8,7 +8,7 @@ import (
 )
 
 func newLb(ctx *pulumi.Context) error {
-	_, err := alb.NewLoadBalancer(ctx, "lb", &alb.LoadBalancerArgs{
+	lb, err := alb.NewLoadBalancer(ctx, "lb", &alb.LoadBalancerArgs{
 		DropInvalidHeaderFields:      pulumi.Bool(false),
 		EnableCrossZoneLoadBalancing: pulumi.Bool(false),
 		EnableDeletionProtection:     pulumi.Bool(false),
@@ -26,7 +26,7 @@ func newLb(ctx *pulumi.Context) error {
 		return err
 	}
 
-	_, err = alb.NewTargetGroup(ctx, "frontend", &alb.TargetGroupArgs{
+	tg, err := alb.NewTargetGroup(ctx, "frontend", &alb.TargetGroupArgs{
 		DeregistrationDelay:            pulumi.Int(300),
 		LambdaMultiValueHeadersEnabled: pulumi.Bool(false),
 		Name:                           pulumi.String("sock-Front-1QDQY0UJQC5EN"),
@@ -40,6 +40,18 @@ func newLb(ctx *pulumi.Context) error {
 	if err != nil {
 		return err
 	}
+
+	_, err = alb.NewListener(ctx, "frontend", &alb.ListenerArgs{
+		DefaultActions: alb.ListenerDefaultActionArray{
+			&alb.ListenerDefaultActionArgs{
+				TargetGroupArn: tg.ID(),
+				Type:           pulumi.String("forward"),
+			},
+		},
+		LoadBalancerArn: lb.Arn,
+		Port:            pulumi.Int(80),
+		Protocol:        pulumi.String("HTTP"),
+	})
 
 	return nil
 }
