@@ -41,7 +41,7 @@ func newLb(ctx *pulumi.Context) error {
 		return err
 	}
 
-	_, err = alb.NewListener(ctx, "frontend", &alb.ListenerArgs{
+	listener, err := alb.NewListener(ctx, "frontend", &alb.ListenerArgs{
 		DefaultActions: alb.ListenerDefaultActionArray{
 			&alb.ListenerDefaultActionArgs{
 				TargetGroupArn: tg.ID(),
@@ -52,6 +52,32 @@ func newLb(ctx *pulumi.Context) error {
 		Port:            pulumi.Int(80),
 		Protocol:        pulumi.String("HTTP"),
 	})
+	if err != nil {
+		return err
+	}
+
+	_, err = alb.NewListenerRule(ctx, "frontend", &alb.ListenerRuleArgs{
+		Actions: &alb.ListenerRuleActionArray{
+			&alb.ListenerRuleActionArgs{
+				TargetGroupArn: tg.Arn,
+				Type:           pulumi.String("forward"),
+			},
+		},
+		Conditions: &alb.ListenerRuleConditionArray{
+			&alb.ListenerRuleConditionArgs{
+				PathPattern: &alb.ListenerRuleConditionPathPatternArgs{
+					Values: pulumi.StringArray{
+						pulumi.String("*"),
+					},
+				},
+			},
+		},
+		ListenerArn: listener.Arn,
+		Priority:    pulumi.Int(1),
+	})
+	if err != nil {
+		return err
+	}
 
 	return nil
 }
