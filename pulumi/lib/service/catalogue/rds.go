@@ -4,6 +4,7 @@ import (
 	"github.com/mizzy/sock-shop/pulumi/lib/ecs"
 	"github.com/mizzy/sock-shop/pulumi/lib/vpc"
 	"github.com/pulumi/pulumi-aws/sdk/v4/go/aws/ec2"
+	"github.com/pulumi/pulumi-aws/sdk/v4/go/aws/rds"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
@@ -42,6 +43,18 @@ func newRds(ctx *pulumi.Context) error {
 		SecurityGroupId: sg.ID(),
 		ToPort:          pulumi.Int(0),
 		Type:            pulumi.String("egress"),
+	})
+	if err != nil {
+		return err
+	}
+
+	_, err = rds.NewSubnetGroup(ctx, "my_db_subnet_group", &rds.SubnetGroupArgs{
+		Description: pulumi.String("description"),
+		Name:        pulumi.String("sock-shop-mydbsubnetgroup-128kweik4u1y1"),
+		SubnetIds: pulumi.StringArray{
+			vpc.PublicSubnet1.ID(),
+			vpc.PublicSubnet2.ID(),
+		},
 	})
 	if err != nil {
 		return err
