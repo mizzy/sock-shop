@@ -6,7 +6,6 @@ import (
 )
 
 var TaskExecutionRole *iam.Role
-var TaskRole *iam.Role
 
 func newEcsTaskExecutionRole(ctx *pulumi.Context) error {
 	var err error
