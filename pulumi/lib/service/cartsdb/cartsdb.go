@@ -6,7 +6,7 @@ func NewCartsDB(ctx *pulumi.Context) error {
 	resources := []func(ctx2 *pulumi.Context) error{
 		newTaskDefinition,
 		newRegistry,
-		//newService,
+		newService,
 	}
 
 	for _, r := range resources {
