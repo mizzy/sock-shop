@@ -32,6 +32,7 @@ func newService(ctx *pulumi.Context) error {
 		},
 		TaskDefinition:     taskDef.Arn,
 		WaitForSteadyState: pulumi.Bool(false),
+		LaunchType:         pulumi.String("FARGATE"),
 	})
 	if err != nil {
 		return err
