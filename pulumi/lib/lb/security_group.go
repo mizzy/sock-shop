@@ -60,7 +60,7 @@ func newSecurityGroup(ctx *pulumi.Context) error {
 		SecurityGroupId: ElbSecurityGroup.ID(),
 		ToPort:          pulumi.Int(0),
 		Type:            pulumi.String("egress"),
-	}, pulumi.Protect(true))
+	})
 	if err != nil {
 		return err
 	}
