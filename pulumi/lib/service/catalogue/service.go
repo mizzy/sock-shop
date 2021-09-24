@@ -1,16 +1,21 @@
 package catalogue
 
-/*
+import (
+	e "github.com/mizzy/sock-shop/pulumi/lib/ecs"
+	"github.com/mizzy/sock-shop/pulumi/lib/vpc"
+	"github.com/pulumi/pulumi-aws/sdk/v4/go/aws/ecs"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+)
+
 func newService(ctx *pulumi.Context) error {
-	_, err := ecs.NewService(ctx, "carts", &ecs.ServiceArgs{
+	_, err := ecs.NewService(ctx, "catalogue", &ecs.ServiceArgs{
 		Cluster:                         e.Cluster.Arn,
 		DeploymentMaximumPercent:        pulumi.Int(200),
 		DeploymentMinimumHealthyPercent: pulumi.Int(100),
 		DesiredCount:                    pulumi.Int(1),
 		EnableEcsManagedTags:            pulumi.Bool(false),
 		EnableExecuteCommand:            pulumi.Bool(false),
-		LaunchType:                      pulumi.String("FARGATE"),
-		Name:                            pulumi.String("sock-shop-CartsService-IMy4x0jU4FX0"),
+		Name:                            pulumi.String("sock-shop-CatalogueService-mVp9BfkdbXVD"),
 		NetworkConfiguration: &ecs.ServiceNetworkConfigurationArgs{
 			AssignPublicIp: pulumi.Bool(true),
 			SecurityGroups: pulumi.StringArray{
@@ -34,5 +39,3 @@ func newService(ctx *pulumi.Context) error {
 
 	return nil
 }
-
-*/
