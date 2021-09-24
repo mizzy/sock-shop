@@ -48,13 +48,35 @@ func newRds(ctx *pulumi.Context) error {
 		return err
 	}
 
-	_, err = rds.NewSubnetGroup(ctx, "my_db_subnet_group", &rds.SubnetGroupArgs{
+	subnetGroup, err := rds.NewSubnetGroup(ctx, "my_db_subnet_group", &rds.SubnetGroupArgs{
 		Description: pulumi.String("description"),
 		Name:        pulumi.String("sock-shop-mydbsubnetgroup-128kweik4u1y1"),
 		SubnetIds: pulumi.StringArray{
 			vpc.PublicSubnet1.ID(),
 			vpc.PublicSubnet2.ID(),
 		},
+	})
+	if err != nil {
+		return err
+	}
+
+	_, err = rds.NewInstance(ctx, "catalogue", &rds.InstanceArgs{
+		AutoMinorVersionUpgrade:    pulumi.Bool(true),
+		CopyTagsToSnapshot:         pulumi.Bool(false),
+		DeleteAutomatedBackups:     pulumi.Bool(true),
+		Identifier:                 pulumi.String("sc1n069klknraxv"),
+		InstanceClass:              pulumi.String("db.t2.medium"),
+		MonitoringInterval:         pulumi.Int(0),
+		PerformanceInsightsEnabled: pulumi.Bool(false),
+		PubliclyAccessible:         pulumi.Bool(false),
+		SkipFinalSnapshot:          pulumi.Bool(true),
+		VpcSecurityGroupIds:        pulumi.StringArray{sg.ID()},
+		DbSubnetGroupName:          subnetGroup.Name,
+		AllocatedStorage:           pulumi.Int(100),
+		Name:                       pulumi.String("socksdb"),
+		Engine:                     pulumi.String("MySQL"),
+		Username:                   pulumi.String("catalogue_user"),
+		Password:                   pulumi.String("default_password"),
 	})
 	if err != nil {
 		return err
