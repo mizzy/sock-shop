@@ -16,6 +16,7 @@ func newTaskDefinition(ctx *pulumi.Context) error {
 		RequiresCompatibilities: pulumi.StringArray{
 			pulumi.String("FARGATE"),
 		},
+		NetworkMode: pulumi.String("awsvpc"),
 	})
 	if err != nil {
 		return err
