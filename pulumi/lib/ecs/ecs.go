@@ -7,7 +7,6 @@ import (
 func NewEcs(ctx *pulumi.Context) error {
 	resources := []func(*pulumi.Context) error{
 		newCloudWatchLogs,
-		newDynamoDbTaskRole,
 		newEcsTaskExecutionRole,
 		newSeriveDiscovery,
 		newCluster,

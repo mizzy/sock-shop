@@ -5,6 +5,7 @@ import (
 	"github.com/mizzy/sock-shop/pulumi/lib/service/cartsdb"
 	"github.com/mizzy/sock-shop/pulumi/lib/service/catalogue"
 	"github.com/mizzy/sock-shop/pulumi/lib/service/frontend"
+	"github.com/mizzy/sock-shop/pulumi/lib/service/orders"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
@@ -14,6 +15,7 @@ func NewServices(ctx *pulumi.Context) error {
 		carts.NewCarts,
 		cartsdb.NewCartsDB,
 		catalogue.NewCatalogue,
+		orders.NewOrders,
 	}
 
 	for _, s := range services {
