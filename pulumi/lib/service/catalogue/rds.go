@@ -8,6 +8,8 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
+var dbInstance *rds.Instance
+
 func newRds(ctx *pulumi.Context) error {
 	sg, err := ec2.NewSecurityGroup(ctx, "db_ecs", &ec2.SecurityGroupArgs{
 		Description:         pulumi.String("Open database for access"),
@@ -60,7 +62,7 @@ func newRds(ctx *pulumi.Context) error {
 		return err
 	}
 
-	_, err = rds.NewInstance(ctx, "catalogue", &rds.InstanceArgs{
+	dbInstance, err = rds.NewInstance(ctx, "catalogue", &rds.InstanceArgs{
 		AutoMinorVersionUpgrade:    pulumi.Bool(true),
 		CopyTagsToSnapshot:         pulumi.Bool(false),
 		DeleteAutomatedBackups:     pulumi.Bool(true),
