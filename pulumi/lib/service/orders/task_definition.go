@@ -22,7 +22,6 @@ func newTaskDefinition(ctx *pulumi.Context) error {
 		TaskRoleArn: taskRole.Arn,
 		NetworkMode: pulumi.String("awsvpc"),
 	})
-
 	if err != nil {
 		return err
 	}
