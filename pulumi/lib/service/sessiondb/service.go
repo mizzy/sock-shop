@@ -31,7 +31,7 @@ func newService(ctx *pulumi.Context) error {
 		ServiceRegistries: &ecs.ServiceServiceRegistriesArgs{
 			RegistryArn: registry.Arn,
 		},
-		TaskDefinition:     pulumi.String("sock-shop-SessionDBTask-lmz8Mx5Cmgth:1"),
+		TaskDefinition:     taskDef.Arn,
 		WaitForSteadyState: pulumi.Bool(false),
 	})
 	if err != nil {
