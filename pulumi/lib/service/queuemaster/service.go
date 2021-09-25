@@ -33,7 +33,7 @@ func newService(ctx *pulumi.Context) error {
 		},
 		TaskDefinition:     taskDef.Arn,
 		WaitForSteadyState: pulumi.Bool(false),
-	}, pulumi.Protect(true))
+	})
 	if err != nil {
 		return err
 	}
