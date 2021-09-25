@@ -7,6 +7,7 @@ import (
 	"github.com/mizzy/sock-shop/pulumi/lib/service/frontend"
 	"github.com/mizzy/sock-shop/pulumi/lib/service/orders"
 	"github.com/mizzy/sock-shop/pulumi/lib/service/payment"
+	"github.com/mizzy/sock-shop/pulumi/lib/service/queuemaster"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
@@ -18,6 +19,7 @@ func NewServices(ctx *pulumi.Context) error {
 		catalogue.NewCatalogue,
 		orders.NewOrders,
 		payment.NewPayment,
+		queuemaster.NewQueueMaster,
 	}
 
 	for _, s := range services {
