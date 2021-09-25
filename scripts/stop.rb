@@ -1,4 +1,4 @@
-#!/usr/bin/env/ruby
+#!/usr/bin/env ruby
 
 require 'aws-sdk-rds'
 require 'aws-sdk-ecs'
