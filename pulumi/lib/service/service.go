@@ -13,6 +13,7 @@ import (
 	"github.com/mizzy/sock-shop/pulumi/lib/service/shipping"
 	"github.com/mizzy/sock-shop/pulumi/lib/service/user"
 	"github.com/mizzy/sock-shop/pulumi/lib/service/userdb"
+	"github.com/mizzy/sock-shop/pulumi/lib/service/zipkin"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
@@ -30,6 +31,7 @@ func NewServices(ctx *pulumi.Context) error {
 		shipping.NewShipping,
 		user.NewUser,
 		userdb.NewUserDB,
+		zipkin.NewZipkin,
 	}
 
 	for _, s := range services {

@@ -11,6 +11,7 @@ func NewEcs(ctx *pulumi.Context) error {
 		newSeriveDiscovery,
 		newCluster,
 		newSecurityGroup,
+		newLb,
 	}
 
 	for _, r := range resources {
