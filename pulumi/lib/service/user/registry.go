@@ -9,7 +9,8 @@ import (
 var registry *servicediscovery.Service
 
 func newRegistry(ctx *pulumi.Context) error {
-	_, err := servicediscovery.NewService(ctx, "user", &servicediscovery.ServiceArgs{
+	var err error
+	registry, err = servicediscovery.NewService(ctx, "user", &servicediscovery.ServiceArgs{
 		DnsConfig: &servicediscovery.ServiceDnsConfigArgs{
 			DnsRecords: &servicediscovery.ServiceDnsConfigDnsRecordArray{
 				&servicediscovery.ServiceDnsConfigDnsRecordArgs{
