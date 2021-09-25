@@ -8,6 +8,7 @@ import (
 	"github.com/mizzy/sock-shop/pulumi/lib/service/orders"
 	"github.com/mizzy/sock-shop/pulumi/lib/service/payment"
 	"github.com/mizzy/sock-shop/pulumi/lib/service/queuemaster"
+	"github.com/mizzy/sock-shop/pulumi/lib/service/rabbitmq"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
@@ -20,6 +21,7 @@ func NewServices(ctx *pulumi.Context) error {
 		orders.NewOrders,
 		payment.NewPayment,
 		queuemaster.NewQueueMaster,
+		rabbitmq.NewRabbitMq,
 	}
 
 	for _, s := range services {
