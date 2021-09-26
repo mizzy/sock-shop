@@ -1,4 +1,4 @@
-package ec2
+package catalogue
 
 import (
 	"github.com/mizzy/sock-shop/pulumi/lib/ecs"
@@ -16,7 +16,7 @@ func NewRdsImporter(ctx *pulumi.Context) error {
 		Tags: pulumi.StringMap{
 			"Name": pulumi.String("RDS Importer - sock-shop"),
 		},
-		UserData:            pulumi.String("#!/bin/bash -xe\nyum -y install mysql\nwget https://raw.githubusercontent.com/microservices-demo/catalogue/master/docker/catalogue-db/data/dump.sql\nmysql -u catalogue_user --password=default_password -h ${aws_db_instance.catalogue.address} \\\n  -f -D socksdb < dump.sql"),
+		UserData:            pulumi.Sprintf("#!/bin/bash -xe\nyum -y install mysql\nwget https://raw.githubusercontent.com/microservices-demo/catalogue/master/docker/catalogue-db/data/dump.sql\nmysql -u catalogue_user --password=default_password -h %s \\\n  -f -D socksdb < dump.sql", dbInstance.Address),
 		VpcSecurityGroupIds: pulumi.StringArray{ecs.EcsSecurityGroup.ID()},
 	})
 	if err != nil {

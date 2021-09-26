@@ -37,7 +37,6 @@ func NewServices(ctx *pulumi.Context) error {
 		zipkin.NewZipkin,
 		zipkincron.NewZipkinCron,
 		zipkindb.NewZipkinDb,
-		ec2.NewRdsImporter,
 	}
 
 	for _, s := range services {
