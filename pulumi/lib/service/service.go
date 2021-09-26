@@ -1,7 +1,6 @@
 package service
 
 import (
-	"github.com/mizzy/sock-shop/pulumi/lib/ec2"
 	"github.com/mizzy/sock-shop/pulumi/lib/service/carts"
 	"github.com/mizzy/sock-shop/pulumi/lib/service/cartsdb"
 	"github.com/mizzy/sock-shop/pulumi/lib/service/catalogue"
